@@ -41,9 +41,14 @@ def get_keystone_token():
     try:
         request = requests.post(url, data=data, verify=False)
     except Exception:
-        logging.debug('Error while gettting auth token')
-        logging.debug('%s', request.status_code)
-        sys.exit(1)
+        try:
+            url = 'http://{0}:{1}/v2.0/tokens'.format(OPENSTACK_IP,
+                                                      public_endPoint)
+            request = requests.post(url, data=data)
+        except Exception:
+            logging.debug('Error while gettting auth token')
+            logging.debug('%s', request.status_code)
+            sys.exit(1)
     decode_response = (request.text.decode('utf-8'))
     string = str(decode_response)
     token_info = json.loads(string)
@@ -66,9 +71,14 @@ def instance_details():
     try:
         request = requests.get(url, headers=headers, verify=False)
     except Exception:
-        logging.debug('Error while gettting instance details')
-        logging.debug('%s', request.status_code)
-        sys.exit(1)
+        try:
+            url = 'http://{0}:{1}/v2.0/ports.json'.format(OPENSTACK_IP,
+                                                          neutron_service)
+            request = requests.get(url, headers=headers)
+        except Exception:
+            logging.debug('Error while gettting instance details')
+            logging.debug('%s', request.status_code)
+            sys.exit(1)
     decode_response = (request.text.decode('utf-8'))
     string = str(decode_response)
     ports_info = json.loads(string)
@@ -94,9 +104,15 @@ def remove_secgroup():
     try:
         request = requests.put(url, headers=headers, data=data, verify=False)
     except Exception:
-        logging.debug('Error while removing secgroup of an instance')
-        logging.debug('%s', request.status_code)
-        sys.exit(1)
+        try:
+            url = 'http://{0}:{1}/v2.0/ports/{2}.json'.format(OPENSTACK_IP,
+                                                              neutron_service,
+                                                              port_id)
+            request = requests.put(url, headers=headers, data=data)
+        except Exception:
+            logging.debug('Error while removing secgroup of an instance')
+            logging.debug('%s', request.status_code)
+            sys.exit(1)
     logging.info('Security group has removed of an instance')
 
 
@@ -116,9 +132,15 @@ def port_disable():
     try:
         request = requests.put(url, headers=headers, data=data, verify=False)
     except Exception:
-        logging.debug('Error while disabling securtiy port')
-        logging.debug('%s', request.status_code)
-        sys.exit(1)
+        try:
+            url = 'http://{0}:{1}/v2.0/ports/{2}.json'.format(OPENSTACK_IP,
+                                                              neutron_service,
+                                                              port_id)
+            request = requests.put(url, headers=headers, data=data)
+        except Exception:
+            logging.debug('Error while disabling securtiy port')
+            logging.debug('%s', request.status_code)
+            sys.exit(1)
     logging.info('Disabled scurtiy port')
 
 get_keystone_token()
