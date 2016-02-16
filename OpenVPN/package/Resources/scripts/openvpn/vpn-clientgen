@@ -1,4 +1,5 @@
 #!/bin/bash
+# This file runs create-tap-server.py and creates a service called vpn-clientgen
 
 NAME="vpn-clientgen"
 PIDFILE="/var/run/$NAME.pid"

@@ -1,10 +1,12 @@
 #!/usr/bin/python
+# This file invoke create-tap.sh
 from flask import Flask
 import subprocess
 
 app = Flask(__name__)
 
 
+# It returns id_rsa.pub content to whom requested
 @app.route('/api/v1/id_rsa')
 def got():
     txt = open("/root/.ssh/id_rsa.pub")

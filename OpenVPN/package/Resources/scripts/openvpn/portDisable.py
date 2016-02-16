@@ -1,4 +1,8 @@
 #!/usr/bin/python
+"""
+This file removes security group of an instance and
+disable the security port of instance using Rest APIs
+"""
 import json
 import ConfigParser
 import requests

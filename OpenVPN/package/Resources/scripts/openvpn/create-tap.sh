@@ -50,6 +50,7 @@ function gen_cert()
     gceIp=$2
     cd /etc/openvpn/easy-rsa
     source ./vars
+    # shellcheck disable=SC1091
     ./pkitool ${clientname}
  
     if [ -f ~/ssh/known_hosts ] ; then

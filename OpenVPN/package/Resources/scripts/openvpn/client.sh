@@ -51,6 +51,7 @@ function gen_cert()
     clientname=$1
     gceIp=$2
     cd /etc/openvpn/easy-rsa
+    # shellcheck disable=SC1091
     source ./vars
     ./pkitool ${clientname}
     
