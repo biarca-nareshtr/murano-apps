@@ -1,23 +1,20 @@
 #!/bin/bash
-#  Licensed under the Apache License, Version 2.0 (the "License"); you may
-#  not use this file except in compliance with the License. You may obtain
-#  a copy of the License at
-#
-#       http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing, software
-#  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-#  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-#  License for the specific language governing permissions and limitations
-#  under the License.
-#$1 - tapDhcpBegin
-#$2 - tapDhcpEnd
-#$3 - netmask
-#$4 - gceUserName
-#$5 - gcePassword
-#$6 - gceNodesIp
-#$7 - publicServerPort
-#$8 - publicServerIp
+
+# This file deploys the OpenVPN server in Instance
+# Procedure:
+# Copies the reqiure templetes and openvpn server&client script files from package to Instance
+# Creates the conf file (/etc/os_openvpn/os_openvpn.conf) in instance and
+# get the variables values as argumns to this script from the UI forms
+# Finally invokes server.sh file which deploys a OpenVPN server
+
+# $1 - tapDhcpBegin
+# $2 - tapDhcpEnd
+# $3 - netmask
+# $4 - gceUserName
+# $5 - gcePassword
+# $6 - gceNodesIp
+# $7 - publicServerPort
+# $8 - publicServerIp
 # $9 - instance name
 # $10 - environment name
 # $11 - OPENSTACK_IP

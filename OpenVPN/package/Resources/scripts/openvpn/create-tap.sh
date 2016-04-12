@@ -1,4 +1,5 @@
 #!/bin/bash
+# This file generates client certs and key files on OpenVPN server instance and copy to clients when it get a request via REST API
 
 set -e
 
@@ -17,7 +18,7 @@ fi
 # Client IPs storing in a array
 function create_client_array()
 {
-    while IFS=',' read -ra IP; do 
+    while IFS=',' read -ra IP; do
         for i in "${IP[@]}"; do
             CLIENTS_ARRAY+=("$i")
         done
@@ -32,7 +33,7 @@ function create-client-name() {
     while true
     do
        name="$pattern$count"
-       if [ ! -f /etc/openvpn/easy-rsa/keys/$name.crt ] && [ ! -f /etc/openvpn/easy-rsa/keys/$name.key ] 
+       if [ ! -f /etc/openvpn/easy-rsa/keys/$name.crt ] && [ ! -f /etc/openvpn/easy-rsa/keys/$name.key ]
        then
           CLIENT_NAME="$name"
           break
@@ -43,15 +44,16 @@ function create-client-name() {
     done
 }
 
-# Generating client certificates and copying 
+# Generating client certificates and copying
 function gen_cert()
 {
     clientname=$1
     gceIp=$2
     cd /etc/openvpn/easy-rsa
     source ./vars
+    # shellcheck disable=SC1091
     ./pkitool ${clientname}
- 
+
     if [ -f ~/ssh/known_hosts ] ; then
       ssh-keygen -f ~/ssh/known_hosts -R ${gceIp}
     fi
@@ -75,7 +77,7 @@ function gen_cert()
 create_client_array
 for ip in "${CLIENTS_ARRAY[@]}"
 do
-  
+
    create-client-name
    gen_cert $CLIENT_NAME $ip
 

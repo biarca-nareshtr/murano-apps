@@ -1,4 +1,5 @@
 #!/bin/bash
+# This file generates certs on OpenVPN server and copy to clients when it call from deployOpenVPNClient.sh while deploying OpenVPN
 
 set -e
 
@@ -19,7 +20,7 @@ fi
 # Client IPs storing in a array
 function create_client_array()
 {
-    while IFS=',' read -ra IP; do 
+    while IFS=',' read -ra IP; do
         for i in "${IP[@]}"; do
             CLIENTS_ARRAY+=("$i")
         done
@@ -34,7 +35,7 @@ function create-client-name() {
     while true
     do
        name="$pattern$count"
-       if [ ! -f /etc/openvpn/easy-rsa/keys/$name.crt ] && [ ! -f /etc/openvpn/easy-rsa/keys/$name.key ] 
+       if [ ! -f /etc/openvpn/easy-rsa/keys/$name.crt ] && [ ! -f /etc/openvpn/easy-rsa/keys/$name.key ]
        then
           CLIENT_NAME="$name"
           break
@@ -45,15 +46,16 @@ function create-client-name() {
     done
 }
 
-# Generating client certificates and copying 
+# Generating client certificates and copying
 function gen_cert()
 {
     clientname=$1
     gceIp=$2
     cd /etc/openvpn/easy-rsa
+    # shellcheck disable=SC1091
     source ./vars
     ./pkitool ${clientname}
-    
+
     sshpass -p ${gcePassword} ssh-copy-id ${gceUserName}@${gceIp} -o "StrictHostKeyChecking=no"
 
     ssh ${gceUserName}@${gceIp} uptime
@@ -76,7 +78,7 @@ create_client_array
 #parsing client IP from array and generating certificates for clients on OpenVPN Server
 for ip in "${CLIENTS_ARRAY[@]}"
 do
-  
+
    create-client-name
    gen_cert $CLIENT_NAME $ip
 

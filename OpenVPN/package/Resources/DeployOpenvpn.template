@@ -22,7 +22,7 @@ Parameters:
   publicServerIp: $publicServerIp
   instanceName: $instanceName
   envName: $envName
-  openstackIP: $openstackIP
+  openstackIp: $openstackIp
   tenantName: $tenantName
   userName : $userName
   userPassword: $userPassword
@@ -31,7 +31,7 @@ Parameters:
   gceNodesIp: $gceNodesIp
 
 Body: |
-  return openvpnDeploy('{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13}'.format(args.tapDhcpBegin, args.tapDhcpEnd, args.netmask, args.publicServerPort, args.publicServerIp, args.instanceName, args.envName, args.openstackIP, args.tenantName, args.userName, args.userPassword, args.gceUserName, args.gcePassword, args.gceNodesIp)).stdout
+  return openvpnDeploy('{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13}'.format(args.tapDhcpBegin, args.tapDhcpEnd, args.netmask, args.publicServerPort, args.publicServerIp, args.instanceName, args.envName, args.openstackIp, args.tenantName, args.userName, args.userPassword, args.gceUserName, args.gcePassword, args.gceNodesIp)).stdout
 
 Scripts:
   openvpnDeploy:
@@ -47,7 +47,7 @@ Scripts:
       - openvpn/templates/interfaces
       - openvpn/templates/server.conf
       - openvpn/templates/up.sh
- 
+
     Options:
       captureStdout: true
       captureStderr: true

@@ -24,7 +24,7 @@ Scripts:
     EntryPoint: runPortDisable.sh
     Files:
       - openvpn/portDisable.py
- 
+
     Options:
       captureStdout: true
       captureStderr: true

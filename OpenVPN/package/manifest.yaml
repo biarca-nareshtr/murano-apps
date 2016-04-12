@@ -12,14 +12,14 @@
 
 Format: 1.0
 Type: Application
-FullName: io.murano.apps.Openvpn
+FullName: io.murano.apps.openvpn.OpenVpn
 Name: OpenVPN
 Description: |
- OpenVPN is a full-featured SSL VPN which implements OSI layer 2 or 3 secure network 
- extension using the industry standard SSL/TLS protocol, supports flexible client 
- authentication methods based on certificates, smart cards, and/or username/password credentials, 
- and allows user or group-specific access control policies using firewall rules applied to the VPN virtual interface. 
+ OpenVPN is a full-featured SSL VPN which implements OSI layer 2 or 3 secure network
+ extension using the industry standard SSL/TLS protocol, supports flexible client
+ authentication methods based on certificates, smart cards, and/or username/password credentials,
+ and allows user or group-specific access control policies using firewall rules applied to the VPN virtual interface.
 Author: 'Biarca'
 Tags: [Openvpn server]
 Classes:
- io.murano.apps.Openvpn: Openvpn.yaml
+ io.murano.apps.openvpn.OpenVpn: Openvpn.yaml

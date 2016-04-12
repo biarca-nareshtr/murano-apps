@@ -10,7 +10,7 @@
 #  License for the specific language governing permissions and limitations
 #  under the License.
 
-Version: 2.2
+Version: 2.1
 
 Templates:
   customJoinNet:
@@ -21,7 +21,8 @@ Templates:
 
 Application:
   ?:
-    type: io.murano.apps.Openvpn
+    type: io.murano.apps.openvpn.OpenVpn
+  name: $.appConfiguration.name
   tapDhcpBegin: $.appConfiguration.tapDhcpBegin
   tapDhcpEnd: $.appConfiguration.tapDhcpEnd
   netmask: $.appConfiguration.netmask
@@ -30,7 +31,7 @@ Application:
   gceNodesIp: $.clientConfiguration.gceNodesIp
   publicServerPort: $.appConfiguration.publicServerPort
   publicServerIp: $.appConfiguration.publicServerIp
-  openstackIP: $.hostConfiguration.openstackIP
+  openstackIp: $.hostConfiguration.openstackIp
   tenantName: $.hostConfiguration.tenantName
   userName: $.hostConfiguration.userName
   userPassword: $.hostConfiguration.userPassword
@@ -52,6 +53,12 @@ Application:
 Forms:
   - appConfiguration:
       fields:
+        - name: name
+          type: string
+          label: Application Name
+          initial: 'OpenVPN'
+          description: >-
+            Enter a desired name for the application. Just A-Z, a-z, 0-9, dash and underline are allowed
         - name: tapDhcpBegin
           type: string
           label: Tap DHCP Begin
@@ -84,12 +91,12 @@ Forms:
           required: false
   - hostConfiguration:
       fields:
-        - name: openstackIP
+        - name: openstackIp
           type: string
           required: true
-          label: OpenStack IP
+          label: HAProxy Public IP
           description: >-
-            Provide OpenStack Endpoint IP
+            Provide public IP of HAProxy
         - name: tenantName
           type: string
           required: true

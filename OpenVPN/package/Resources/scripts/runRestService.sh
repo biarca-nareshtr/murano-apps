@@ -1,4 +1,6 @@
 #!/bin/bash
+# This file installs the python flask server and copies required files from package to OpenVPN
+# server instance and it starts the vpn-clientgen service
 apt-get install python-pip -y
 pip install flask
 cp openvpn/create-tap.sh /opt/openvpn/
